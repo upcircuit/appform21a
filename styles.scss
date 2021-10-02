@@ -42,16 +42,16 @@ $brand-yellow: #fbd000;
 #bg-dummy-main {
   position: absolute;
   z-index:-2;
-  height:100vh;
-  width:80vw;
+  height:100%;
+  width:80%;
   pointer-events: none;
 }
 
 #bg-dummy-char {
   position: absolute;
   z-index:-2;
-  height:100vh;
-  width:100vw;
+  height:100%;
+  width:100%;
   pointer-events: none;
 }
 
@@ -61,7 +61,7 @@ $brand-yellow: #fbd000;
   z-index:-3;
   right:10%;
   top:10%;
-  height:80vh;
+  height:80%;
   width:auto;
   pointer-events: none;
 }
@@ -341,7 +341,6 @@ input#menu-input {
 #char-select-ok {
   div {
     box-sizing: border-box;
-    padding-left:8rem;
     padding-right:0;
   }
 }

@@ -35,16 +35,16 @@
 #bg-dummy-main {
   position: absolute;
   z-index: -2;
-  height: 100vh;
-  width: 80vw;
+  height: 100%;
+  width: 80%;
   pointer-events: none;
 }
 
 #bg-dummy-char {
   position: absolute;
   z-index: -2;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   pointer-events: none;
 }
 
@@ -53,7 +53,7 @@
   z-index: -3;
   right: 10%;
   top: 10%;
-  height: 80vh;
+  height: 80%;
   width: auto;
   pointer-events: none;
 }
@@ -76,8 +76,7 @@
   display: block;
   box-sizing: border-box;
   padding: 0 10%;
-  -webkit-clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
-          clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+  clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
 }
 
 .volumeSlider {
@@ -88,6 +87,7 @@
   background: #e4e4e4;
   outline: none;
   opacity: 0.7;
+  -webkit-transition: 0.2s;
   transition: opacity 0.2s;
 }
 .volumeSlider::-webkit-slider-thumb {
@@ -125,8 +125,7 @@
   background-color: #e52521;
   color: #e4e4e4;
   font-size: 3rem;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .nav-button button p {
   margin: 0 2rem;
@@ -151,8 +150,7 @@
   background-color: #fbd000;
   color: #e4e4e4;
   font-size: 3.5rem;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .start-button button p {
   margin: 0 2.5rem;
@@ -332,7 +330,6 @@ input#menu-input::-ms-input-placeholder {
 
 #char-select-ok div {
   box-sizing: border-box;
-  padding-left: 8rem;
   padding-right: 0;
 }
 
@@ -350,6 +347,7 @@ input#menu-input::-ms-input-placeholder {
   left: 0;
   z-index: 9980;
   text-align: center;
+  -webkit-transition: opacity 1.5s;
   transition: opacity 1.5s;
 }
 #loadingscreen span {
@@ -362,16 +360,23 @@ input#menu-input::-ms-input-placeholder {
   width: 52vh;
   height: 52vh;
   top: 50%;
+  -webkit-transform: translateY(-56%);
   transform: translateY(-56%);
+  -webkit-transition: opacity 1.5s;
   transition: opacity 1.5s;
   margin: auto;
 }
 #loadingscreen #circuit-logo {
   width: 100%;
   height: 100%;
+  -webkit-animation-delay: 1.5s;
   animation-delay: 1.5s;
+  -webkit-animation-timing-function: ease;
   animation-timing-function: ease;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
   transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
 }
 #loadingscreen #circuit-logo:hover {
   transform: scale(1.1);
@@ -381,6 +386,7 @@ input#menu-input::-ms-input-placeholder {
   position: absolute;
   bottom: 10%;
   right: 50%;
+  -webkit-transform: translateX(50%);
   transform: translateX(50%);
   color: #FFF;
   font-size: 2.25vh;
@@ -419,6 +425,30 @@ input#menu-input::-ms-input-placeholder {
 }
 
 @keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes lds-ring {
   0% {
     transform: rotate(0deg);
   }

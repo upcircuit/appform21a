@@ -315,9 +315,6 @@
       </div>
     </div>
     <div id="bg-dummy-welcome" v-if="status == 0"></div>
-    <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
-    <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
-    <img src="./static/2a.png" id="bg-dummy-main" v-if="status == 2"></img>
     <img src="./static/4a.png" id="bg-dummy-ty" v-if="status == 3"></img>
     <div class="h-screen">
       <div id="loading" v-show="status == 0" class="grid place-self-center place-items-center h-screen">
@@ -335,6 +332,7 @@
       </div>
 
       <div id="character" v-show="status == 1" class="grid grid-cols-8 grid-rows-6 gap-2 min-h-full">
+        <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
         <div id="character-picker" class="row-start-2 row-span-5 w-4/5 col-span-3 bg-white bg-opacity-25 rounded-3xl flex items-center flex-wrap">
           <div v-for="(characterLabel, index) in CharData.optionLabel"
               @click="selectCharacter(index)"
@@ -357,6 +355,8 @@
       </div>
 
       <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-show="status == 2">
+        <img src="./static/2a.png" id="bg-dummy-main" v-if="status == 2"></img>
+        <img src="./static/mario.png" id="icon-dummy-main" v-if="status == 2"></img>
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
           <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi flex-0 w-3/5">
             <p v-text="field.label" v-if="!onLast" ></p>
