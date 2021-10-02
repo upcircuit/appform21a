@@ -1,0 +1,428 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap");
+@font-face {
+  font-family: ErasBoldITC;
+  src: url(./static/ErasBoldITC.ttf);
+}
+@font-face {
+  font-family: ErasDemiITC;
+  src: url(./static/ErasDemiITC.ttf);
+}
+.font-eras-bold {
+  font-family: ErasBoldITC, sans-serif;
+}
+
+.font-eras-demi {
+  font-family: ErasDemiITC, sans-serif;
+  letter-spacing: 0.04em;
+  font-stretch: 143%;
+}
+
+#form {
+  position: relative;
+  background: transparent;
+}
+
+#bg-dummy-welcome {
+  position: absolute;
+  background-image: url(./static/1a.png);
+  background-position: center;
+  background-size: cover;
+  z-index: -2;
+  height: 100vh;
+  width: 100vw;
+}
+
+#bg-dummy-main {
+  position: absolute;
+  z-index: -2;
+  height: 100vh;
+  width: 80vw;
+  pointer-events: none;
+}
+
+#bg-dummy-char {
+  position: absolute;
+  z-index: -2;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+}
+
+#icon-dummy-main {
+  position: absolute;
+  z-index: -3;
+  right: 10%;
+  top: 10%;
+  height: 80vh;
+  width: auto;
+  pointer-events: none;
+}
+
+#bg-dummy-ty {
+  position: absolute;
+  z-index: -2;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+}
+
+.menu-item {
+  filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
+}
+.menu-item p {
+  background-color: #e4e4e4;
+  font-size: 2.5rem;
+  transition: all 0.2s ease-in-out;
+  display: block;
+  box-sizing: border-box;
+  padding: 0 10%;
+  -webkit-clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+          clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+}
+
+.volumeSlider {
+  -webkit-appearance: none;
+  width: 10rem;
+  height: 0.75rem;
+  border-radius: 0.75rem;
+  background: #e4e4e4;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #fbd000;
+  cursor: pointer;
+}
+.volumeSlider::-moz-range-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #fbd000;
+  cursor: pointer;
+}
+.volumeSlider:hover {
+  opacity: 1;
+  /* Fully shown on mouse-over */
+}
+
+#img-welcome {
+  width: 60%;
+}
+
+.nav-button {
+  box-sizing: border-box;
+  padding: 0 2rem;
+  filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
+  transition: all 0.2s ease-in-out;
+}
+.nav-button button {
+  background-color: #e52521;
+  color: #e4e4e4;
+  font-size: 3rem;
+  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+}
+.nav-button button p {
+  margin: 0 2rem;
+}
+.nav-button:hover {
+  transform: scale(1.1, 1.1);
+}
+.nav-button:active {
+  transform: scale(0.9, 0.9);
+}
+.nav-button:active button {
+  filter: brightness(0.5);
+}
+
+.start-button {
+  box-sizing: border-box;
+  padding: 0 2.5rem;
+  filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
+  transition: all 0.2s ease-in-out;
+}
+.start-button button {
+  background-color: #fbd000;
+  color: #e4e4e4;
+  font-size: 3.5rem;
+  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+}
+.start-button button p {
+  margin: 0 2.5rem;
+}
+.start-button:hover {
+  transform: scale(1.1, 1.1);
+}
+.start-button:active {
+  transform: scale(0.9, 0.9);
+}
+.start-button:active button {
+  filter: brightness(0.5);
+}
+
+.menu-item-active p {
+  background-color: #fbd000;
+  transform: scale(1.2, 1.2);
+}
+
+.submit-text {
+  font-family: Quicksand, sans-serif;
+  font-size: 3rem;
+}
+
+input#menu-input {
+  font-family: Quicksand, sans-serif;
+  font-size: 2.5rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid black;
+}
+input#menu-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  opacity: 1;
+  /* Firefox */
+  color: rgba(0, 0, 0, 0.6);
+}
+input#menu-input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgba(0, 0, 0, 0.6);
+}
+input#menu-input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.selector {
+  font-family: Quicksand, sans-serif;
+  font-size: 2.5rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+#menu-input-label {
+  font-family: Quicksand, sans-serif;
+}
+
+#choose-char-image {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  height: auto;
+  width: 50vw;
+}
+
+#character {
+  position: relative;
+}
+
+#character-picker {
+  height: 90%;
+  row-gap: 0rem;
+  place-self: start center;
+}
+
+.character-option {
+  max-width: 100%;
+  height: auto;
+  flex-basis: 50%;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+.character-option:hover:before {
+  position: absolute;
+  background-image: url(./static/select.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center center;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  content: "";
+  opacity: 50%;
+}
+.character-option img {
+  width: 60%;
+  height: auto;
+  margin: auto;
+}
+
+.character-active:before {
+  position: absolute;
+  background-image: url(./static/select.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center center;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  content: "";
+}
+
+#character-flavor {
+  width: 90%;
+  font-family: Quicksand, sans-serif;
+  font-size: 1rem;
+  height: 100%;
+}
+#character-flavor h2 {
+  font-family: ErasBoldITC, sans-serif;
+  font-size: 3rem;
+}
+#character-flavor p {
+  margin-left: 2rem;
+  white-space: pre-line;
+}
+
+#character-banner {
+  background-image: url(./static/chooseachar.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#ty-banner {
+  background-image: url(./static/seeyou.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  height: 100%;
+  width: 80%;
+}
+
+#ty-text {
+  font-family: ErasDemiITC, sans-serif;
+  font-size: 2rem;
+  width: 80%;
+  height: 100%;
+  position: relative;
+}
+#ty-text p {
+  transform: rotate(-3.5deg);
+  position: absolute;
+  right: 10%;
+  top: -15%;
+  text-align: right;
+}
+
+#ty-trophy {
+  background-image: url(./static/trophy.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 90%;
+  width: 100%;
+}
+
+.validation-warning {
+  margin-top: 2rem;
+  font-family: Quicksand, sans-serif;
+  font-size: 1.5rem;
+  color: #e52521;
+  text-align: right;
+}
+
+#char-select-ok div {
+  box-sizing: border-box;
+  padding-left: 8rem;
+  padding-right: 0;
+}
+
+#form-helper {
+  place-self: center center;
+}
+
+#loadingscreen {
+  background-color: #111111;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  text-align: center;
+  transition: opacity 1.5s;
+}
+#loadingscreen span {
+  color: #dddddd;
+  width: 100vh;
+  padding: 0;
+}
+#loadingscreen #logo {
+  position: relative;
+  width: 52vh;
+  height: 52vh;
+  top: 50%;
+  transform: translateY(-56%);
+  transition: opacity 1.5s;
+  margin: auto;
+}
+#loadingscreen #circuit-logo {
+  width: 100%;
+  height: 100%;
+  animation-delay: 1.5s;
+  animation-timing-function: ease;
+  transition: transform 0.2s;
+}
+#loadingscreen #circuit-logo:hover {
+  transform: scale(1.1);
+  transition: all ease 500ms;
+}
+#loadingscreen #disclaimer {
+  position: absolute;
+  bottom: 10%;
+  right: 50%;
+  transform: translateX(50%);
+  color: #FFF;
+  font-size: 2.25vh;
+  text-align: center;
+}
+
+#loadingRing {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 256px;
+  height: 256px;
+  margin-left: -128px;
+  margin-top: -128px;
+}
+#loadingRing div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 256px;
+  height: 256px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.17, 0.88, 0.73, 0.12) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+#loadingRing div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+#loadingRing div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+#loadingRing div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="description" content="Join UP Circuit now!">
+    <meta charset="utf-8">
+    <title>UP Circuit 21A App Form</title>
+    <link rel="icon" href="./static/Circuit Logo Square 1080p.png" type="image/png">
+    <link href="./styles.css" rel="stylesheet">
+    <link href="./tailwind-dark.css" rel="stylesheet">
+    <script type="module">
+      import { createApp } from 'https://unpkg.com/petite-vue?module';
+      createApp({
+        el: '#body',
+        mounted(){
+          const images = this.imagesToPreload.map(imageSrc => {
+            return new Promise((resolve, reject) => {
+              const img = new Image();
+              img.src = imageSrc;
+              img.onload = resolve;
+              img.onerror = reject;
+            });
+          });
+
+          Promise.all(images).then(() => {
+            console.log("Images loaded!");
+            this.isLoading = false;
+          }).catch(error => {
+            //console.error("Some image(s) failed loading!");
+            console.error(error.message)
+          });
+        },
+        isLoading: true,
+        imagesToPreload: [
+          "./static/1a.png",
+          "./static/2a.png",
+          "./static/3a.png",
+          "./static/4a.png",
+          "./static/WELCEM.png",
+        ],
+        dataFields:{
+          Name: {
+            label: "Full Name",
+            data: "",
+            dataType: "text",
+            placeholder: "Jose Rizal",
+            get validate () {
+              if (/\S+\s\S+/.test(this.data)){
+                return true;
+              } else { return false; }
+            }
+          },
+          StudentNo: {
+            label: "Student Number",
+            data: "",
+            dataType: "text",
+            placeholder: "20XX-YYYYY",
+            get validate () {
+              if (/20\d{2}-\d{5}$/.test(this.data)){
+                return true;
+              } else { return false; }
+            }
+          },
+          Course: {
+            label: "Course",
+            data: "",
+            dataType: "selection",
+            options: ['Computer Engg.', 'Electrical Engg.', 'Electronics Engg.'],
+            get validate () {
+              if (this.options.includes(this.data)){
+                return true;
+              } else {
+                return false;
+              }
+            }
+          },
+          Email: {
+            label: "Email Address",
+            data: "",
+            dataType: "text",
+            placeholder: "username@website.com",
+            get validate () {
+              if (/\w+@\w+\.\w+/.test(this.data)){
+                return true;
+              } else { return false; }
+            }
+          },
+          Contacts: {
+            label: "Contact Number",
+            data: "",
+            dataType: "text",
+            placeholder: "09XXYYYZZZZ",
+            get validate () {
+              if (/09\d{9}/.test(this.data)){
+                return true;
+              } else { return false; }
+            }
+          },
+          Facebook: {
+            label: "Facebook Link",
+            data: "",
+            dataType: "text",
+            placeholder: "facebook.com/username/",
+            get validate () {
+              if (this.data != ""){
+                return true;
+              } else { return false; }
+            }
+          },
+          Pronouns: {
+            label: "Pronouns",
+            data: "",
+            dataType: "text",
+            placeholder: "He/Him, They/Their, She/Her, etc.",
+            get validate () {
+              if (this.data != ""){
+                return true;
+              } else { return false; }
+            }
+          },
+        },
+        /* I could make this into a datafield, but I also could not */
+        CharData: {
+          label: "Character",
+          selected: 0,
+          optionLabel: ["Mario", "Luigi", "Peach", "Bowser", "Daisy", "Yoshi"],
+          optionFlavor: ["Having been the main star of the show and the whole franchise, Mario represents a natural leader who joins a lot of extracurricular activities and enjoys mingling with a lot of people—used to being in the spotlight.",
+          "A simple and lowkey person. They enjoy spending time on their own but often still have extroverted friends like Mario who they get along with. They are really fun and nice to be with once you get to know them :)",
+          "The pretty/pogi one who gets hundreds of likes on their profile pictures. Mahilig umawra, fashionista, at palaging naka-ootd tuwing may gala.",
+          "Bowser may often be characterized as the villain, but they actually just do what they do to reach their goals. They won’t let anything or anyone stand in the way of them getting what they want. They be goal diggers ;)",
+          "Daisy is either sporty or talented, or both. They are active af and like to practice their skills everyday when they can. They are very passionate in what they love to do.",
+          "Yoshi is the cutest person in the world loved by everyone. You often see them sharing wholesome memes on the timeline or on your GCs. Always asks you how your day was. Most probably like petting and playing with doggos and cattos."],
+          optionFlavor2: ["Extroverted, Bidakid, Stellar, Class officer, BS Org",
+          "Introverted, Independent, Lowkey, Shy",
+          "PRETTY/POGI AF, Fashionable, Active sa Socmed, Muse/Escort ng Class",
+          "Goal-oriented, Ambitious, Maangas, Anak ng Mafia Boss",
+          "Sporty, Talented, Active, Competitive",
+          "Wholesome, Cute, Thoughtful"
+          ],
+          get flavor() {
+              return this.optionFlavor[this.selected]
+          },
+          get flavor2() {
+            return this.optionFlavor2[this.selected]
+          },
+          get label(){
+            return this.optionLabel[this.selected];
+          }
+        },
+        pageNo: 0,
+        validateFlag: 0,
+        pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns", "Review"],
+        status: -1,
+        pullData (){
+          let JSONData = [];
+          for (let fieldKey in this.pages) {
+            if (fieldKey == this.pages.length - 1) {continue}
+            let name = this.pages[fieldKey];
+            let JSONvar = {[name]:this.dataFields[name].data};
+            JSONData.push(JSONvar);
+          }
+          return JSON.stringify(JSONData)
+        },
+        pushData (JSONData){
+          let parsedJSON = JSON.parse(JSONData)
+          for (let fieldKey in parsedJSON) {
+            this.dataFields[this.pages[fieldKey]].data = parsedJSON[fieldKey][this.pages[fieldKey]];
+          }
+        },
+        readyContinue (){
+        this.buttonSFX();
+          /* console.log("YAY!") */
+          if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
+          if (localStorage.data) {this.pushData(localStorage.data)}
+          if (localStorage.status) {this.status = localStorage.status}
+          if (localStorage.character) {this.CharData.selected = localStorage.character}
+          else {this.status = 2; localStorage.status = 2;}
+        },
+        readyNew (){
+        this.buttonSFX();
+          localStorage.clear();
+          this.ready();
+        },
+        readyLoading (){
+          document.getElementById("bgAudio").play();
+          this.status++;
+        },
+        ready (){
+          this.buttonSFX();
+          this.status++;
+          localStorage.status = this.status;
+        },
+        next (){
+          if (this.currfield.validate){
+            this.buttonSFX();
+            this.validateFlag = 0;
+            this.pageNo++;
+            localStorage.pageNo = this.pageNo;
+            localStorage.data = this.pullData();
+          } else {
+            this.validateFlag = 1;
+            //alert('Validation Error')
+          }
+        },
+        back (){
+          this.buttonSFX();
+          this.pageNo--;
+          localStorage.pageNo = this.pageNo;
+        },
+        backCharSelect (){
+          this.buttonSFX();
+          this.status--;
+          localStorage.status = this.status;
+        },
+        get onFirst (){
+          return (this.pageNo == 0)
+        },
+        get onLast (){
+          return (this.pageNo == this.pages.length-1)
+        },
+        get currfield (){
+          return this.dataFields[this.pages[this.pageNo]];
+        },
+        active (field){
+          if (field == this.currfield){
+            return "menu-item menu-item-active";
+          } else {
+            return "menu-item";
+          }
+        },
+        selectCharacter (index) {
+          this.CharData.selected = index;
+          localStorage.character = index;
+        },
+        activeCharacter (index) {
+          if (index == this.CharData.selected){
+            return "character-option character-active";
+          } else {
+            return "character-option";
+          }
+        },
+        debug (){
+          //quickly go to TY page.
+          this.ready()
+          var url = "https://docs.google.com/forms/d/e/1FAIpQLSdimV_BMwHWE-cKeX2fb12D4B0zerxjprYBW_5jRUxd_YRWFQ/formResponse?"
+
+          var names = ['entry.1971848531', 'entry.2095210633', 'entry.1023986858', 'entry.2106804884', 'entry.15147818', 'entry.1362062595', 'entry.581553320']
+          var i = 0;
+
+          for (let key in this.dataFields) {
+            url += names[i];
+            url += '='
+
+            var field = this.dataFields[key].data;
+            var arr = field.split(' ');
+            if (arr.length > 1) {
+              for (var k = 0; k < arr.length; k++) {
+                url+= arr[k];
+                if (k != arr.length-1) { url += '+'; }
+              }
+            }
+            else { url += field; }
+            url += '&';
+            i++;
+          }
+          url += 'entry.2083507613=';
+          url += this.CharData.label;
+
+          fetch(url, {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+          })
+          .catch((err)=> console.error(err))
+        },
+        volumeValue: 50,
+        changeVolume () {
+          document.getElementById("bgAudio").volume = this.volumeValue/100;
+          document.getElementById("bgSFX").volume = this.volumeValue/100;
+        },
+        buttonSFX (){
+          document.getElementById("bgSFX").play();
+        }
+      }).mount()
+    </script>
+  </head>
+  <body class="bg-gray-100" @mounted="mounted" v-scope>
+    <audio id="bgAudio" loop>
+     <source src="./static/audio/21A BG Music.mp3"  type="audio/mpeg">
+    </audio>
+    <audio id="bgSFX">
+     <source src="./static/audio/Sound FX.mp3"  type="audio/mpeg">
+    </audio>
+    <div id="loadingscreen" v-if="status == -1">
+      <div id="logo" @click="readyLoading()">
+        <img src="./static/upcircuitformal_small.png" alt="U.P. Circuit Logo" id="circuit-logo">
+      </div>
+      <div id="loadingRing" v-if="isLoading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div id="disclaimer" class="no-select">
+        <h2 id="clickTag">Click the logo to proceed</h2>
+        For a better viewing experience, please view this site on a Desktop Computer
+      </div>
+    </div>
+    <div id="bg-dummy-welcome" v-if="status == 0"></div>
+    <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
+    <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
+    <img src="./static/2a.png" id="bg-dummy-main" v-if="status == 2"></img>
+    <img src="./static/4a.png" id="bg-dummy-ty" v-if="status == 3"></img>
+    <div class="h-screen">
+      <div id="loading" v-show="status == 0" class="grid place-self-center place-items-center h-screen">
+        <div class="items-center"><img src="./static/welcem.png" id="img-welcome" class="mx-auto"></img></div>
+        <div class="flex justify-center">
+          <div class="start-button font-eras-bold"><button @click="readyNew()"><p>START NEW</p></button></div>
+          <div class="start-button font-eras-bold" v-show="localStorage.data"><button @click="readyContinue()"><p>CONTINUE</p></button></div>
+        </div>
+        <div class="flex justify-center">
+          <div class="m-2">Volume:</div>
+          <div class="m-2">
+            <input @change="changeVolume" type="range" min=0 max=100 class="volumeSlider" v-model="volumeValue">
+          </div>
+        </div>
+      </div>
+
+      <div id="character" v-show="status == 1" class="grid grid-cols-8 grid-rows-6 gap-2 min-h-full">
+        <div id="character-picker" class="row-start-2 row-span-5 w-4/5 col-span-3 bg-white bg-opacity-25 rounded-3xl flex items-center flex-wrap">
+          <div v-for="(characterLabel, index) in CharData.optionLabel"
+              @click="selectCharacter(index)"
+              v-bind:class="activeCharacter(index)"
+              class="flex-basis-50">
+              <img v-bind:src="'./static/characters/' + characterLabel.toLowerCase() + '.png'"></img>
+          </div>
+        </div>
+        <div id="character-banner"
+          class="row-start-1 col-start-4 row-span-2 col-span-5"
+        ></div>
+        <div id="character-flavor" class="row-start-3 col-start-4 row-span-2 col-span-5">
+          <h2>{{ CharData.label }}</h2>
+          <p>{{ CharData.flavor }}</p><br>
+          <p>Characteristics: {{ CharData.flavor2 }}</p>
+        </div>
+        <div id="char-select-ok" class="row-span-1 col-span-3 col-start-6 row-start-6 justify-self-center flex flex-row-reverse ">
+          <div class="self-center font-eras-bold nav-button"><button @click="ready()"><p>SELECT</p></button></div>
+        </div>
+      </div>
+
+      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-show="status == 2">
+        <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
+          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi flex-0 w-3/5">
+            <p v-text="field.label" v-if="!onLast" ></p>
+            <p v-text="field.data" v-if="onLast" ></p>
+          </div>
+        </div>
+
+        <div id="form-helper" class="col-span-3 row-span-2 col-start-4 row-start-2">
+          <div v-show="!onLast">
+            <input
+              id="menu-input"
+              placeholder="Insert answer here..."
+              type="text"
+              v-model="currfield.data"
+              v-show="currfield.dataType == 'text'"
+              :placeholder="currfield.placeholder"
+              @keyup.enter="next()"></input>
+            <select v-model="currfield.data" v-show="currfield.dataType == 'selection'" class="selector">
+              <template v-for="option in currfield.options">
+                <option v-text="option"></option>
+              </template>
+            </select>
+          </div>
+          <p class="validation-warning" v-if="validateFlag">Validation Error!<br>Please match the given format.</p>
+          <p v-if="onLast" class="submit-text">Would you like to submit?</p>
+        </div>
+
+        <div class="bg-white-100 flex flex-row-reverse col-span-2 row-start-5 col-start-5 p-8 items-end">
+          <div class="font-eras-bold nav-button"><button @click="debug()" v-if="onLast"><p>SUBMIT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="next()" v-if="!onLast"><p>NEXT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="onFirst ? backCharSelect() : back()"><p>BACK</p></button></div>
+        </div>
+      </div>
+
+      <div id="thank-you" class="grid grid-cols-8 grid-rows-6 min-h-full gap-2" v-show=" status == 3">
+        <div id="ty-banner" class="place-self-center row-start-2 row-span-2 col-start-1 col-span-5"></div>
+        <div id="ty-text" class="place-self-center row-start-4 row-span-2 col-start-1 col-span-5">
+          <p>@ the Applicant's Orientation<br>8 October 2021<br>3-5 PM<br>Check your emails!</p>
+        </div>
+        <div id="ty-trophy" class="row-start-1 row-span-6 col-start-6 col-span-3 place-self-center"></div>
+      </div>
+
+    </div>
+  </body>
+</html>
